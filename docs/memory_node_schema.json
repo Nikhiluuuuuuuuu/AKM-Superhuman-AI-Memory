@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AKM Memory Node",
+  "description": "Schema for a single node in the Associative Keyword Memory graph",
+  "type": "object",
+  "required": ["keyword", "type", "first_seen", "importance_score", "emotional_salience", "memory_layer"],
+  "properties": {
+    "keyword": {
+      "type": "string",
+      "description": "The concept or entity this node represents"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["concept", "entity", "event", "action", "attribute"],
+      "description": "Category of the memory node"
+    },
+    "first_seen": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_accessed": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "access_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "importance_score": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "emotional_salience": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "salience_type": {
+      "type": "string",
+      "enum": ["positive", "negative", "neutral"]
+    },
+    "memory_layer": {
+      "type": "string",
+      "enum": ["working", "long_term", "episodic", "procedural"]
+    },
+    "decay_rate": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "connected_to": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["keyword", "weight", "relation"],
+        "properties": {
+          "keyword": { "type": "string" },
+          "weight": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0
+          },
+          "relation": { "type": "string" },
+          "last_reinforced": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "obsidian_path": {
+      "type": "string",
+      "description": "Relative path to the Obsidian vault note for this node"
+    }
+  }
+}
